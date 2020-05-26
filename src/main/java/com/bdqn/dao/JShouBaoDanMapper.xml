@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.dao.JShouBaoDanMapper">
+
+
+    <resultMap id="JShouBaoDanMap" type="JShouBaoDan">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="queryShouBaoDanListByXinqianid" parameterType="JShouBaoDan" resultMap="JShouBaoDanMap">
+        select * from j_shoubaodan where xinqianid = #{xinqianid} and isdel=0
+    </select>
+
+    <insert id="insertJShouBaoDan" parameterType="JShouBaoDan" >
+        insert into j_shoubaodan(createdate,makedate,depart01,depart02,depart03,depart04,contact_person,xinqianid,cname,ctype,gd_type,area,gd_id,isdel,createname,status,password,qw,phone,main_product,special_approval_form,remarks,img_url)
+         values(#{createdate},#{makedate},#{depart01},#{depart02},#{depart03},#{depart04},#{contact_person},#{xinqianid},#{cname},#{ctype},#{gd_type},#{area},#{gd_id},#{isdel},#{createname},#{status},#{password},#{qw},#{phone},#{main_product},#{special_approval_form},#{remarks},#{img_url})
+    </insert>
+
+    <select id="queryShouBaoDanList" parameterType="JShouBaoDan" resultMap="JShouBaoDanMap">
+        select * from j_shoubaodan
+        <where>
+            <if test="isdel != -1 and isdel != null ">
+                isdel = #{isdel}
+            </if>
+            <if test="cname != null and cname != ''">
+                and cname = #{cname}
+            </if>
+            <if test="startcreatedate != null and  endcreatedate !=null and startcreatedate != '' and endcreatedate != '' ">
+                <![CDATA[ and #{startcreatedate} <= createdate and createdate <= #{endcreatedate} ]]>
+            </if>
+            <if test="startmakedate != null and  endmakedate !=null and startmakedate != '' and endmakedate != '' ">
+                <![CDATA[ and #{startmakedate} <= makedate and makedate <= #{endmakedate} ]]>
+            </if>
+            <if test="depart01 != 0 and depart01 != null and depart01 != '' ">
+                and depart01 = #{depart01}
+            </if>
+            <if test="depart02 != 0 and depart02 != null and depart02 != '' ">
+                and depart02 = #{depart02}
+            </if>
+            <if test="depart03 != 0 and depart03 != null and depart03 != '' ">
+                and depart03 = #{depart03}
+            </if>
+            <if test="depart04 != 0 and depart04 != null and depart04 != '' ">
+                and depart04 = #{depart04}
+            </if>
+            <if test="xinqianid != null and xinqianid != ''">
+                and xinqianid = #{xinqianid}
+            </if>
+            <if test="createname != null and createname != ''">
+                and createname = #{createname}
+            </if>
+            <if test="ctype != null and ctype != ''">
+                and ctype = #{ctype}
+            </if>
+            <if test="contact_person != null and contact_person != ''">
+                and contact_person = #{contact_person}
+            </if>
+            <if test="area != null and area != ''">
+                and area = #{area}
+            </if>
+            <if test="gd_type != null and gd_type != ''">
+                and gd_type = #{gd_type}
+            </if>
+            <if test="gd_id != null and gd_id != ''">
+                and gd_id = #{gd_id}
+            </if>
+            <if test="createdate != null">
+                and createdate = #{createdate}
+            </if>
+            <if test="makedate != null and makedate != ''">
+                and makedate = #{makedate}
+            </if>
+        </where>
+        ORDER BY id desc
+    </select>
+
+    <update id="updateJShouBaoDanIsDel" parameterType="list">
+        update  j_shoubaodan set isdel = '1' where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </update>
+
+    <update id="updateJShouBaoDan" parameterType="JShouBaoDan">
+        update j_shoubaodan
+        <set>
+            <if test="isdel > -1 ">isdel = #{isdel},</if>
+            <if test="ctype != null">ctype = #{ctype},</if>
+            <if test="depart01 != null">depart01 = #{depart01},</if>
+            <if test="depart02 != null">depart02 = #{depart02},</if>
+            <if test="depart03 != null">depart03 = #{depart03},</if>
+            <if test="depart04 != null">depart04 = #{depart04},</if>
+            <if test="cname != null">cname = #{cname},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="createdate != null">createdate = #{createdate},</if>
+            <if test="makedate != null">makedate = #{makedate},</if>
+            <if test="creatname != null">creatname = #{creatname},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="qw != null">qw = #{qw},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="main_product != null">main_product = #{main_product},</if>
+            <if test="special_approval_form != null">special_approval_form = #{special_approval_form},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="xinqianid != null">xinqianid = #{xinqianid},</if>
+            <if test="gd_id != null">gd_id = #{gd_id},</if>
+            <if test="contact_person != null">contact_person = #{contact_person},</if>
+            <if test="gd_type != null">gd_type = #{gd_type},</if>
+            <if test="img_url != null">img_url = #{img_url},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 注解扫描包 -->
+    <context:component-scan base-package="com.bdqn.controller"></context:component-scan>
+
+    <!-- 开启注解 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>text/xml;charset=UTF-8</value>
+                        <value>text/plain;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <mvc:resources mapping="/statics/**" location="/statics/"></mvc:resources>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+
+
+    <bean id="theLogger" class="com.bdqn.aop.ControllerLogger"></bean>
+    <aop:config>
+        <aop:pointcut id="pointcut" expression="execution(* com.bdqn.controller.*.*(..))"></aop:pointcut>
+        <aop:aspect ref="theLogger">
+            <aop:before method="before" pointcut-ref="pointcut"></aop:before>
+            <aop:after-returning method="after" pointcut-ref="pointcut" returning="result"></aop:after-returning>
+        </aop:aspect>
+    </aop:config>
+
+    <!--<mvc:interceptors>
+        &lt;!&ndash; 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 &ndash;&gt;
+        &lt;!&ndash; <bean class="com.bybo.aca.web.interceptor.Login"/> &ndash;&gt;
+        <mvc:interceptor>
+            &lt;!&ndash; 进行拦截：/**表示拦截所有controller &ndash;&gt;
+            <mvc:mapping path="/**" />
+            &lt;!&ndash; 不进行拦截 &ndash;&gt;
+            <mvc:exclude-mapping path="/user/login.do"/>
+            &lt;!&ndash; 不进行拦截 &ndash;&gt;
+&lt;!&ndash;            <mvc:exclude-mapping path="/get/tableInforAllByStatus" />&ndash;&gt;
+            <mvc:exclude-mapping path="/statics/**" />
+            <bean class="com.bdqn.util.JWTInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+
+    <!-- 上传文件解析器配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <!-- 上传文件的大小限制 ，单位是字节5242880000000-->
+        <property name="maxUploadSize" value="52428800"></property>
+        <!-- 上传文件的临时路径，上传完成后会自动删除 -->
+       <!-- <property name="uploadTempDir" value="./statics/upload/temp"></property>-->
+    </bean>
+
+
+
+</beans>

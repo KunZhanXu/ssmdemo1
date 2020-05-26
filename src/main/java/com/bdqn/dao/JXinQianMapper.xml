@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.dao.JXinQianMapper">
+
+    <resultMap id="xinqianMap" type="JXinQian">
+        <id column="id" property="id"/>
+    </resultMap>
+
+    <insert id="insertXinQian" parameterType="JXinQian" >
+        insert into j_xinqian(industry,ctype,cfrom,chengshudu,status_genjin,status,departjia,departyi,belongid
+                                ,spstatus,tiaorurenid,lastupdateid,tohighseatimes,chengshudu_last,isdel,createid,updateid,groupid,depart_property
+                                ,depart01,depart02,depart03,depart04,belongid_last,all_id,hezuo_status,status_trade,multiplestores,ordercount,day90,rechargeallcount,istp
+                                ,canme,registnumber,tag,phone,faren,range,url,email,address,belongname
+                                ,tiaoruren,bianhao_customer,createip,updateip,depart_property_list,beizhu,caccount,cpwsd,area,wxb,currentstate,customersubordinate,otherplatform
+                                ,registdate,tiaorudate,lastupdatedate,lasttohighseadate,creatdate,upatedate,tradespdate,opentime,firstrechargetime
+                                ,wprice,rechargeallprice,consumeallprice
+                                ,creatname,xinqianid,to_order_type,contact_person,to_money_type,manager_group
+                                ,RenewTime,RenewYear,IsRefund,IsFirstInsurance,factory_customers
+                                )
+                    values(#{industry},#{ctype},#{cfrom},#{chengshudu},#{status_genjin},#{status},#{departjia},#{departyi},#{belongid}
+                            ,#{spstatus},#{tiaorurenid},#{lastupdateid},#{tohighseatimes},#{chengshudu_last},#{isdel},#{createid},#{updateid},#{groupid},#{depart_property}
+                            ,#{depart01},#{depart02},#{depart03},#{depart04},#{belongid_last},#{all_id},#{hezuo_status},#{status_trade},#{multiplestores},#{ordercount},#{day90},#{rechargeallcount},#{istp}
+                            ,#{canme},#{registnumber},#{tag},#{phone},#{faren},#{range},#{url},#{email},#{address},#{belongname}
+                            ,#{tiaoruren},#{bianhao_customer},#{createip},#{updateip},#{depart_property_list},#{beizhu},#{caccount},#{cpwsd},#{area},#{wxb},#{currentstate},#{customersubordinate},#{otherplatform}
+                            ,#{registdate},#{tiaorudate},#{lastupdatedate},#{lasttohighseadate},#{creatdate},#{upatedate},#{tradespdate},#{opentime},#{firstrechargetime}
+                            ,#{wprice},#{rechargeallprice},#{consumeallprice}
+                            ,#{creatname},#{xinqianid},#{to_order_type},#{contact_person},#{to_money_type},#{manager_group}
+                            ,#{renewtime},#{renewyear},#{isrefund},#{isfirstinsurance},#{factory_customers}
+                    )
+    </insert>
+
+    <update id="updateXinQianByXinqianId" parameterType="JXinQian">
+        update j_xinqian
+        <set>
+            <if test="isdel > -1 ">isdel = #{isdel},</if>
+            <if test="industry != null">industry = #{industry},</if>
+            <if test="ctype != null">ctype = #{ctype},</if>
+            <if test="cfrom != null">cfrom = #{cfrom},</if>
+            <if test="chengshudu != null">chengshudu = #{chengshudu},</if>
+            <if test="status_genjin != null">status_genjin = #{status_genjin},</if>
+            <if test="status != null">status = #{status}</if>
+            <if test="departjia != null">departjia = #{departjia},</if>
+            <if test="departyi != null">departyi = #{departyi},</if>
+            <if test="belongid != null">belongid = #{belongid},</if>
+            <if test="spstatus != null">spstatus = #{spstatus},</if>
+            <if test="tiaorurenid != null">tiaorurenid = #{tiaorurenid},</if>
+            <if test="lastupdateid != null">lastupdateid = #{lastupdateid},</if>
+            <if test="tohighseatimes != null">tohighseatimes = #{tohighseatimes},</if>
+            <if test="chengshudu_last != null">chengshudu_last = #{chengshudu_last},</if>
+            <if test="createid != null">createid = #{createid},</if>
+            <if test="updateid != null">updateid = #{updateid},</if>
+            <if test="groupid != null">groupid = #{groupid},</if>
+            <if test="depart_property != null">depart_property = #{depart_property},</if>
+            <if test="depart01 != null">depart01 = #{depart01},</if>
+            <if test="depart02 != null">depart02 = #{depart02},</if>
+            <if test="depart03 != null">depart03 = #{depart03},</if>
+            <if test="depart04 != null">depart04 = #{depart04},</if>
+            <if test="belongid_last != null">belongid_last = #{belongid_last},</if>
+            <if test="all_id != null">all_id = #{all_id},</if>
+            <if test="hezuo_status != null">hezuo_status = #{hezuo_status},</if>
+            <if test="status_trade != null">status_trade = #{status_trade},</if>
+            <if test="multiplestores != null">multiplestores = #{multiplestores},</if>
+            <if test="ordercount != null">ordercount = #{ordercount},</if>
+            <if test="day90 != null">industry = #{day90},</if>
+            <if test="rechargeallcount != null">rechargeallcount = #{rechargeallcount},</if>
+            <if test="istp != null">istp = #{istp},</if>
+            <if test="canme != null">canme = #{canme},</if>
+            <if test="registnumber != null">registnumber = #{registnumber},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="faren != null">faren = #{faren},</if>
+            <if test="range != null">range = #{range},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="belongname != null">belongname = #{belongname},</if>
+            <if test="tiaoruren != null">tiaoruren = #{tiaoruren},</if>
+            <if test="bianhao_customer != null">bianhao_customer = #{bianhao_customer},</if>
+            <if test="createip != null">createip = #{createip},</if>
+            <if test="updateip != null">updateip = #{updateip},</if>
+            <if test="depart_property_list != null">depart_property_list = #{depart_property_list},</if>
+            <if test="beizhu != null">beizhu = #{beizhu},</if>
+            <if test="caccount != null">caccount = #{caccount},</if>
+            <if test="cpwsd != null">cpwsd = #{cpwsd},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="wxb != null">wxb = #{wxb},</if>
+            <if test="currentstate != null">currentstate = #{currentstate},</if>
+            <if test="customersubordinate != null">customersubordinate = #{customersubordinate},</if>
+            <if test="otherplatform != null">otherplatform = #{otherplatform},</if>
+            <if test="registdate != null">registdate = #{registdate},</if>
+            <if test="tiaorudate != null">tiaorudate = #{tiaorudate},</if>
+            <if test="lastupdatedate != null">lastupdatedate = #{lastupdatedate},</if>
+            <if test="lasttohighseadate != null">lasttohighseadate = #{lasttohighseadate},</if>
+            <if test="creatdate != null">creatdate = #{creatdate},</if>
+            <if test="upatedate != null">upatedate = #{upatedate},</if>
+            <if test="tradespdate != null">tradespdate = #{tradespdate},</if>
+            <if test="opentime != null">opentime = #{opentime},</if>
+            <if test="firstrechargetime != null">firstrechargetime = #{firstrechargetime},</if>
+            <if test="wprice != null">wprice = #{wprice},</if>
+            <if test="rechargeallprice != null">rechargeallprice = #{rechargeallprice},</if>
+            <if test="consumeallprice != null">consumeallprice = #{consumeallprice}</if>
+            <if test="creatname != null">creatname = #{creatname},</if>
+            <if test="xinqianid != null">xinqianid = #{xinqianid},</if>
+            <if test="to_order_type != null">to_order_type = #{to_order_type},</if>
+            <if test="contact_person != null">contact_person = #{contact_person},</if>
+            <if test="to_money_type != null">to_money_type = #{to_money_type},</if>
+
+            <if test="renewtime != null">RenewTime = #{renewtime},</if>
+            <if test="renewyear != null">RenewYear = #{renewyear},</if>
+            <if test="isrefund != null">IsRefund = #{isrefund},</if>
+            <if test="isfirstinsurance != null">IsFirstInsurance = #{isfirstinsurance},</if>
+            <if test="factory_customers != null">factory_customers = #{factory_customers},</if>
+        </set>
+        where xinqianid = #{xinqianid}
+    </update>
+
+
+    <update id="updateXinQian" parameterType="JXinQian">
+        update j_xinqian
+        <set>
+            <if test="isdel > -1 ">isdel = #{isdel},</if>
+            <if test="industry != null">industry = #{industry},</if>
+            <if test="ctype != null">ctype = #{ctype},</if>
+            <if test="cfrom != null">cfrom = #{cfrom},</if>
+            <if test="chengshudu != null">chengshudu = #{chengshudu},</if>
+            <if test="status_genjin != null">status_genjin = #{status_genjin},</if>
+            <if test="status != null">status = #{status}</if>
+            <if test="departjia != null">departjia = #{departjia},</if>
+            <if test="departyi != null">departyi = #{departyi},</if>
+            <if test="belongid != null">belongid = #{belongid},</if>
+            <if test="spstatus != null">spstatus = #{spstatus},</if>
+            <if test="tiaorurenid != null">tiaorurenid = #{tiaorurenid},</if>
+            <if test="lastupdateid != null">lastupdateid = #{lastupdateid},</if>
+            <if test="tohighseatimes != null">tohighseatimes = #{tohighseatimes},</if>
+            <if test="chengshudu_last != null">chengshudu_last = #{chengshudu_last},</if>
+            <if test="createid != null">createid = #{createid},</if>
+            <if test="updateid != null">updateid = #{updateid},</if>
+            <if test="groupid != null">groupid = #{groupid},</if>
+            <if test="depart_property != null">depart_property = #{depart_property},</if>
+            <if test="depart01 != null">depart01 = #{depart01},</if>
+            <if test="depart02 != null">depart02 = #{depart02},</if>
+            <if test="depart03 != null">depart03 = #{depart03},</if>
+            <if test="depart04 != null">depart04 = #{depart04},</if>
+            <if test="belongid_last != null">belongid_last = #{belongid_last},</if>
+            <if test="all_id != null">all_id = #{all_id},</if>
+            <if test="hezuo_status != null">hezuo_status = #{hezuo_status},</if>
+            <if test="status_trade != null">status_trade = #{status_trade},</if>
+            <if test="multiplestores != null">multiplestores = #{multiplestores},</if>
+            <if test="ordercount != null">ordercount = #{ordercount},</if>
+            <if test="day90 != null">industry = #{day90},</if>
+            <if test="rechargeallcount != null">rechargeallcount = #{rechargeallcount},</if>
+            <if test="istp != null">istp = #{istp},</if>
+            <if test="canme != null">canme = #{canme},</if>
+            <if test="registnumber != null">registnumber = #{registnumber},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="faren != null">faren = #{faren},</if>
+            <if test="range != null">range = #{range},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="belongname != null">belongname = #{belongname},</if>
+            <if test="tiaoruren != null">tiaoruren = #{tiaoruren},</if>
+            <if test="bianhao_customer != null">bianhao_customer = #{bianhao_customer},</if>
+            <if test="createip != null">createip = #{createip},</if>
+            <if test="updateip != null">updateip = #{updateip},</if>
+            <if test="depart_property_list != null">depart_property_list = #{depart_property_list},</if>
+            <if test="beizhu != null">beizhu = #{beizhu},</if>
+            <if test="caccount != null">caccount = #{caccount},</if>
+            <if test="cpwsd != null">cpwsd = #{cpwsd},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="wxb != null">wxb = #{wxb},</if>
+            <if test="currentstate != null">currentstate = #{currentstate},</if>
+            <if test="customersubordinate != null">customersubordinate = #{customersubordinate},</if>
+            <if test="otherplatform != null">otherplatform = #{otherplatform},</if>
+            <if test="registdate != null">registdate = #{registdate},</if>
+            <if test="tiaorudate != null">tiaorudate = #{tiaorudate},</if>
+            <if test="lastupdatedate != null">lastupdatedate = #{lastupdatedate},</if>
+            <if test="lasttohighseadate != null">lasttohighseadate = #{lasttohighseadate},</if>
+            <if test="creatdate != null">creatdate = #{creatdate},</if>
+            <if test="upatedate != null">upatedate = #{upatedate},</if>
+            <if test="tradespdate != null">tradespdate = #{tradespdate},</if>
+            <if test="opentime != null">opentime = #{opentime},</if>
+            <if test="firstrechargetime != null">firstrechargetime = #{firstrechargetime},</if>
+            <if test="wprice != null">wprice = #{wprice},</if>
+            <if test="rechargeallprice != null">rechargeallprice = #{rechargeallprice},</if>
+            <if test="consumeallprice != null">consumeallprice = #{consumeallprice}</if>
+            <if test="creatname != null">creatname = #{creatname},</if>
+            <if test="xinqianid != null">xinqianid = #{xinqianid},</if>
+            <if test="to_order_type != null">to_order_type = #{to_order_type},</if>
+            <if test="contact_person != null">contact_person = #{contact_person},</if>
+            <if test="to_money_type != null">to_money_type = #{to_money_type},</if>
+            
+            <if test="renewtime != null">RenewTime = #{renewdate},</if>
+            <if test="renewyear != null">RenewYear = #{renewyears},</if>
+            <if test="isrefund != null">IsRefund = #{isrefund},</if>
+            <if test="isfirstinsurance != null">IsFirstInsurance = #{isfirstinsurance},</if>
+            <if test="factory_customers != null">factory_customers = #{factory_customers},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateXinQianIsDel" parameterType="list">
+        update  J_XINQIAN set isdel = '1' where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </update>
+    <delete id="deleteXinQian">
+
+    </delete>
+
+    <select id="queryXinQianListByXinqianId" parameterType="JXinQian" resultMap="xinqianMap">
+        select * from j_xinqian as xq
+        where xinqianid = #{xinqianid}
+    </select>
+    <select id="queryXinQianList" parameterType="JXinQian" resultMap="xinqianMap">
+        select * from j_xinqian as xq
+
+        <where>
+            <if test="isdel != -1 and isdel != null ">
+                isdel = #{isdel}
+            </if>
+            <if test="canme != null and canme != ''">
+                and canme = #{canme}
+            </if>
+            <if test="depart02 != 0 and depart02 != null and depart02 != '' ">
+                and depart02 = #{depart02}
+            </if>
+            <if test="depart03 != 0 and depart03 != null and depart03 != '' ">
+                and depart03 = #{depart03}
+            </if>
+            <if test="depart04 != 0 and depart04 != null and depart04 != '' ">
+                and depart04 = #{depart04}
+            </if>
+            <if test="xinqianid != null and xinqianid != ''">
+                and xinqianid = #{xinqianid}
+            </if>
+            <if test="creatname != null and creatname != ''">
+                and creatname = #{creatname}
+            </if>
+            <if test="ctype != null and ctype != ''">
+                and ctype = #{ctype}
+            </if>
+            <if test="contact_person != null and contact_person != ''">
+                and contact_person = #{contact_person}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="area != null and area != ''">
+                and area = #{area}
+            </if>
+            <if test="manager_group != null and manager_group != ''">
+                and manager_group = #{manager_group}
+            </if>
+            <if test="startcreatetime != null and  endcreatetime !=null and startcreatetime != '' and endcreatetime != '' ">
+                <![CDATA[ and #{startcreatetime} <= creatdate and creatdate <= #{endcreatetime} ]]>
+            </if>
+            <if test="startopentime != null and  endopentime !=null and startopentime != '' and endopentime != '' ">
+                <![CDATA[ and #{startopentime} <= opentime and opentime <= #{endopentime} ]]>
+            </if>
+
+            <if test="startrenewtime != null and  endrenewtime !=null and startrenewtime != '' and endrenewtime != '' ">
+                <![CDATA[ and #{startrenewtime} <= renewtime and renewtime <= #{endrenewtime} ]]>
+            </if>
+            <if test="isrefund != null and isrefund != -1 and isrefund == 1">
+                and IsRefund = #{isrefund}
+            </if>
+            <if test="isrefund != null and isrefund != -1  and isrefund == 0">
+                and (IsRefund = #{isrefund} or IsRefund is null)
+            </if>
+            <if test="wxb != null and wxb !=-1">
+                and wxb = #{wxb}
+            </if>
+            <if test="to_order_type != null and to_order_type != '' and to_order_type !='其他' ">
+                and to_order_type = #{to_order_type}
+            </if>
+            <if test="to_order_type != null and to_order_type != '' and to_order_type =='其他' ">
+                and (
+                    to_order_type != 'IC'
+                    and  to_order_type != '挑公海'
+                    and  to_order_type != '转介绍'
+                    and  to_order_type != '陌拜'
+                    and  to_order_type != '电话开发'
+                    and  to_order_type != '工商资源'
+                )
+            </if>
+            <if test="isfirstinsurance != null and isfirstinsurance!=''">
+                and IsFirstInsurance like '%${isfirstinsurance}%'
+            </if>
+            <if test="renewyear != null and renewyear!=''">
+                and renewyear = #{renewyear}
+            </if>
+            <if test="factory_customers != null and factory_customers!=''">
+                and factory_customers = #{factory_customers}
+            </if>
+        </where>
+        ORDER BY id desc
+    </select>
+<!--and belongname = '集团公海'  j_customer-->
+    <select id="queryXinQianBuCname" parameterType="JXinQian" resultMap="xinqianMap">
+        select * from j_xinqian as xq
+        <where>
+            <if test="isdel != null">isdel = #{isdel}</if>
+            <if test="canme != null">and canme = #{canme}</if>
+            <if test="belongname != null">and belongname = #{belongname}</if>
+        </where>
+    </select>
+
+
+
+    <sql id="xinqianColumns">
+        creatdate,
+        creatname,
+        xinqianid,
+        canme,
+        bianhao_customer,
+        wprice,
+        wxb,
+        ctype,
+        to_order_type,
+        contact_person,
+        phone,
+        to_money_type,
+        opentime,
+        address,
+        ordercount,
+        istp,
+        depart01,
+        depart02,
+        depart03,
+        depart04
+    </sql>
+
+
+
+
+
+
+
+
+
+
+</mapper>

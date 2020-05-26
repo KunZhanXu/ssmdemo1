@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.dao.JUserMapper">
+
+    <resultMap id="userMap" type="JUser">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="userLogin" parameterType="JUser" resultMap="userMap">
+        select * from j_user where username = #{username} and password = #{password} and isdel = 0
+        <if test="username != '16899998888'">
+            and depart01 = 10076
+        </if>
+    </select>
+    <!--根据id查询j_user-->
+    <select id="selectUserById" parameterType="Integer" resultMap="userMap">
+        select * from j_user where id = #{id}
+    </select>
+    <select id="selectLoginAll" resultMap="userMap">
+        select * from j_user
+    </select>
+
+    <select id="selectUserByUname" parameterType="string" resultMap="userMap">
+        select * from j_user where realname = #{realname} and isdel = 0 and depart01 = 10076
+    </select>
+    <!--根据电话号码查询姓名-->
+    <select id="queryNameByPhone" parameterType="String" resultMap="userMap">
+        select * from j_user where phone = #{phone} and isdel = 0 and depart01 = 10076
+    </select>
+</mapper>
