@@ -13,9 +13,24 @@ public class JUserServiceImpl implements JUserService {
     @Resource
     private JUserMapper jUserMapper;
 
+    /**
+     * 新签部查询接口
+     * @param jUser
+     * @return
+     */
     @Override
     public JUser userLogin(JUser jUser) {
         return this.jUserMapper.userLogin(jUser);
+    }
+
+    /**
+     * 总部查询接口
+     * @param jUser
+     * @return
+     */
+    @Override
+    public JUser zbUserLogin(JUser jUser){
+        return this.jUserMapper.zbUserLogin(jUser);
     }
 
     @Override

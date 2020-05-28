@@ -6,7 +6,19 @@ import java.util.List;
 
 public interface JUserService {
 
+    /**
+     * 新签部登录接口
+     * @param jUser
+     * @return
+     */
     JUser userLogin(JUser jUser);
+
+    /**
+     * 总部查询接口
+     * @param jUser
+     * @return
+     */
+    JUser zbUserLogin(JUser jUser);
 
     List<JUser> selectLoginAll();
 

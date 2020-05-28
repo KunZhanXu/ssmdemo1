@@ -28,7 +28,14 @@ public interface JShouBaoDanMapper {
     List<JShouBaoDan> queryShouBaoDanList(JShouBaoDan jShouBaoDan);
 
     /**
-     * 批量删除首保单(假删除)-isdel:1
+     * 批量删除首保单的status-status:已完成
+     * @param idList
+     * @return
+     */
+    Integer updateJShouBaoDanStatus(List<Integer> idList);
+
+    /**
+     * 批量修改首保单(假删除)-isdel:1
      * @param idList
      * @return
      */

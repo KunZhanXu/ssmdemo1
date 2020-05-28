@@ -1,14 +1,17 @@
 package com.bdqn.controller;
 
+import com.bdqn.entity.JShouBaoDan;
 import com.bdqn.entity.JUser;
 import com.bdqn.entity.JXinQian;
 import com.bdqn.entity.JsonResult;
+import com.bdqn.service.JShouBaoDanService;
 import com.bdqn.service.JUserService;
 import com.bdqn.service.JXinQianService;
 import com.bdqn.util.JWTUtil;
 import com.bdqn.util.JsonResultUtil;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +40,8 @@ public class jXinQianController {
     private JXinQianService jXinQianService;
     @Resource
     private JUserService jUserService;
+    @Autowired
+    private JShouBaoDanService jShouBaoDanServiceImpl;
 
     @ResponseBody
     @RequestMapping(value = "/queryNameByPhone",produces = {"application/json;charset=UTF-8"},method = RequestMethod.POST)
@@ -65,7 +70,6 @@ public class jXinQianController {
         if (jsonResult.getCode() == 201){
             return jsonResult;
         }
-
         //验证未删除新签id
         JXinQian selectjXinQian = new JXinQian();
         selectjXinQian.setXinqianid(jXinQian.getXinqianid());
@@ -74,11 +78,17 @@ public class jXinQianController {
         if (!jXinQians.isEmpty()){
             return JsonResultUtil.toJsonString(201,"新签id不能重复");
         }
-
         List<JUser> jUserList = this.jUserService.selectUserByCname(jXinQian.getCreatname());
         if (jUserList.isEmpty()){
             return JsonResultUtil.toJsonString(201,"没有该销售人员");
         }
+        //设置是否赠送首保
+        JShouBaoDan SelectjShouBaoDan = new JShouBaoDan();
+        SelectjShouBaoDan.setXinqianid(jXinQian.getXinqianid());
+        SelectjShouBaoDan.setIsdel(0);
+        //根据xinqianid查询出是否有相同的xinqianid
+        List<JShouBaoDan> jShouBaoDans = this.jShouBaoDanServiceImpl.queryShouBaoDanListByXinqianid(SelectjShouBaoDan);
+        jXinQian.setIsfirstinsurance(jShouBaoDans.isEmpty()?"否":"是");
 
         String token = request.getHeader("token");
         JUser tokenUser = JWTUtil.unsign(token, JUser.class);

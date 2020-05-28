@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.dao.JCustomerMapper">
+
+    <resultMap id="customerMap" type="JCustomer">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="queryCustomer" parameterType="JCustomer" resultMap="customerMap">
+        select * from j_customer where canme = #{canme} and isdel = 0 and BELONGNAME = '集团公海'
+    </select>
+
+    <insert id="insertCustomer" parameterType="JCustomer">
+        insert into j_customer(creatdate,canme,bianhao_customer,wprice,phone,opentime,address,ordercount,belongname
+                                ,creatname,xinqianid,to_order_type,contact_person,to_money_type
+                              )
+                    values(#{creatdate},#{canme},#{bianhao_customer},#{wprice},#{phone},#{opentime},#{address},#{ordercount},#{belongname}
+                            ,#{creatname},#{xinqianid},#{to_order_type},#{contact_person},#{to_money_type}
+                          )
+    </insert>
+
+    <update id="updateCustomer" parameterType="JCustomer">
+        update j_customer
+        <set>
+            <if test="isdel > -1 and isdel != null ">isdel = #{isdel},</if>
+            <if test="industry != null">industry = #{industry},</if>
+            <if test="ctype != null">ctype = #{ctype},</if>
+            <if test="cfrom != null">cfrom = #{cfrom},</if>
+            <if test="chengshudu != null">chengshudu = #{chengshudu},</if>
+            <if test="status_genjin != null">status_genjin = #{status_genjin},</if>
+            <if test="status != null">status = #{status}</if>
+            <if test="departjia != null">departjia = #{departjia},</if>
+            <if test="departyi != null">departyi = #{departyi},</if>
+            <if test="belongid != null">belongid = #{belongid},</if>
+            <if test="spstatus != null">spstatus = #{spstatus},</if>
+            <if test="tiaorurenid != null">tiaorurenid = #{tiaorurenid},</if>
+            <if test="lastupdateid != null">lastupdateid = #{lastupdateid},</if>
+            <if test="tohighseatimes != null">tohighseatimes = #{tohighseatimes},</if>
+            <if test="chengshudu_last != null">chengshudu_last = #{chengshudu_last},</if>
+            <if test="createid != null">createid = #{createid},</if>
+            <if test="updateid != null">updateid = #{updateid},</if>
+            <if test="groupid != null">groupid = #{groupid},</if>
+            <if test="depart_property != null">depart_property = #{depart_property},</if>
+            <if test="depart01 != null">depart01 = #{depart01},</if>
+            <if test="depart02 != null">depart02 = #{depart02},</if>
+            <if test="depart03 != null">depart03 = #{depart03},</if>
+            <if test="depart04 != null">depart04 = #{depart04},</if>
+            <if test="belongid_last != null">belongid_last = #{belongid_last},</if>
+            <if test="all_id != null">all_id = #{all_id},</if>
+            <if test="hezuo_status != null">hezuo_status = #{hezuo_status},</if>
+            <if test="status_trade != null">status_trade = #{status_trade},</if>
+            <if test="multiplestores != null">multiplestores = #{multiplestores},</if>
+            <if test="ordercount != null">ordercount = #{ordercount},</if>
+            <if test="day90 != null">industry = #{day90},</if>
+            <if test="rechargeallcount != null">rechargeallcount = #{rechargeallcount},</if>
+            <if test="istp != null">istp = #{istp},</if>
+            <if test="canme != null">canme = #{canme},</if>
+            <if test="registnumber != null">registnumber = #{registnumber},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="faren != null">faren = #{faren},</if>
+            <if test="range != null">range = #{range},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="belongname != null">belongname = #{belongname},</if>
+            <if test="tiaoruren != null">tiaoruren = #{tiaoruren},</if>
+            <if test="bianhao_customer != null">bianhao_customer = #{bianhao_customer},</if>
+            <if test="createip != null">createip = #{createip},</if>
+            <if test="updateip != null">updateip = #{updateip},</if>
+            <if test="depart_property_list != null">depart_property_list = #{depart_property_list},</if>
+            <if test="beizhu != null">beizhu = #{beizhu},</if>
+            <if test="caccount != null">caccount = #{caccount},</if>
+            <if test="cpwsd != null">cpwsd = #{cpwsd},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="wxb != null">wxb = #{wxb},</if>
+            <if test="currentstate != null">currentstate = #{currentstate},</if>
+            <if test="customersubordinate != null">customersubordinate = #{customersubordinate},</if>
+            <if test="otherplatform != null">otherplatform = #{otherplatform},</if>
+            <if test="registdate != null">registdate = #{registdate},</if>
+            <if test="tiaorudate != null">tiaorudate = #{tiaorudate},</if>
+            <if test="lastupdatedate != null">lastupdatedate = #{lastupdatedate},</if>
+            <if test="lasttohighseadate != null">lasttohighseadate = #{lasttohighseadate},</if>
+            <if test="creatdate != null">creatdate = #{creatdate},</if>
+            <if test="upatedate != null">upatedate = #{upatedate},</if>
+            <if test="tradespdate != null">tradespdate = #{tradespdate},</if>
+            <if test="opentime != null">opentime = #{opentime},</if>
+            <if test="firstrechargetime != null">firstrechargetime = #{firstrechargetime},</if>
+            <if test="wprice != null">wprice = #{wprice},</if>
+            <if test="rechargeallprice != null">rechargeallprice = #{rechargeallprice},</if>
+            <if test="consumeallprice != null">consumeallprice = #{consumeallprice}</if>
+            <if test="creatname != null">creatname = #{creatname},</if>
+            <if test="xinqianid != null">xinqianid = #{xinqianid},</if>
+            <if test="to_order_type != null">to_order_type = #{to_order_type},</if>
+            <if test="contact_person != null">contact_person = #{contact_person},</if>
+            <if test="to_money_type != null">to_money_type = #{to_money_type},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+
+</mapper>

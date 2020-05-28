@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.dao.JDDBindMapper">
+
+
+    <resultMap id="JDDBindMap" type="JDDBind">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="queryJDDBind" parameterType="JDDBind" resultMap="JDDBindMap">
+        select * from J_DDBind where unionid= #{unionid} and openid = #{openid}
+    </select>
+
+    <insert id="savaJDDBInd" parameterType="JDDBind" >
+       insert into J_DDBind(nick,unionid,dingId,openid,phone,realname) values(#{nick},#{unionid},#{dingId},#{openid},#{phone},#{realname})
+    </insert>
+</mapper>

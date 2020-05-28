@@ -38,6 +38,13 @@ public interface JShouBaoDanService {
     Integer updateJShouBaoDanIsDel(List<Integer> idList);
 
     /**
+     * 批量修改首保单的status-status:已完成
+     * @param idList
+     * @return
+     */
+    Integer updateJShouBaoDanStatus(List<Integer> idList);
+
+    /**
      * 修改首保单
      * @param jShouBaoDan
      * @return

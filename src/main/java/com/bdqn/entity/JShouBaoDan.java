@@ -1,8 +1,12 @@
 package com.bdqn.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 public class JShouBaoDan implements Serializable {
     private Integer id;
     private Date createdate; //录单时间
@@ -74,7 +78,8 @@ public class JShouBaoDan implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    // 后台到前台
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     public Date getCreatedate() {
         return createdate;
     }

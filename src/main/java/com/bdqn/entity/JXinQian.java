@@ -84,9 +84,9 @@ public class JXinQian {
     private String endopentime;
     private String startrenewtime;
     private String endrenewtime;
-    //是否赠送首保
-    private String isfirstinsurance;
+    private String isfirstinsurance; //是否赠送首保
     private String factory_customers; //工厂客户
+    private String remarks;//备注
 
     private Date registdate;
     private Date tiaorudate;
@@ -793,5 +793,13 @@ public class JXinQian {
 
     public void setFactory_customers(String factory_customers) {
         this.factory_customers = factory_customers;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

@@ -6,7 +6,19 @@ import java.util.List;
 
 public interface JUserMapper {
 
+    /**
+     * 新签部门登录接口
+     * @param jUser
+     * @return
+     */
     JUser userLogin(JUser jUser);
+
+    /**
+     * 总部登录接口
+     * @param jUser
+     * @return
+     */
+    JUser zbUserLogin(JUser jUser);
 
     List<JUser> selectLoginAll();
 

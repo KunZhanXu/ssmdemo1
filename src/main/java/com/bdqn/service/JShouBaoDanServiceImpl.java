@@ -70,6 +70,15 @@ public class JShouBaoDanServiceImpl implements JShouBaoDanService {
     }
 
     /**
+     * 批量修改首保单的status-status:已完成
+     * @param idList
+     * @return
+     */
+    public Integer updateJShouBaoDanStatus(List<Integer> idList){
+        return jShouBaoDanMapper.updateJShouBaoDanStatus(idList);
+    }
+
+    /**
      * 修改首保单
      * @param jShouBaoDan
      * @return
