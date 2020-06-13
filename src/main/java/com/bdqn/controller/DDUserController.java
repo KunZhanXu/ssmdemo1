@@ -2,8 +2,10 @@ package com.bdqn.controller;
 
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
+import com.dingtalk.api.request.OapiGettokenRequest;
 import com.dingtalk.api.request.OapiUserGetRequest;
 import com.dingtalk.api.request.OapiUserGetuserinfoRequest;
+import com.dingtalk.api.response.OapiGettokenResponse;
 import com.dingtalk.api.response.OapiUserGetResponse;
 import com.dingtalk.api.response.OapiUserGetuserinfoResponse;
 import com.taobao.api.ApiException;
@@ -23,12 +25,15 @@ import java.util.Map;
 public class DDUserController {
 
 
+
     @RequestMapping("/get")
     @ResponseBody
-    public Map<String,String> getUserMobileAndName(@RequestParam("accessToken")String accessToken,@RequestParam("code")String code) throws ApiException {
+    public Map<String,String> getUserMobileAndName(@RequestParam("code")String code) throws ApiException {
+        String accessToken = getAccessToken();
         Map<String, String> result = get(accessToken, code);
         return result;
     }
+
 
 
     /**
@@ -48,6 +53,8 @@ public class DDUserController {
     }
 
 
+
+
     /**
      *  获取用户的Userid
      */
@@ -60,6 +67,22 @@ public class DDUserController {
         return rsp.getUserid();
     }
 
+
+    public String getAccessToken() throws ApiException {
+        try {
+            DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/gettoken");
+            OapiGettokenRequest req = new OapiGettokenRequest();
+            req.setAppkey("dingtme7nvqblxy6ug2y");
+            req.setAppsecret("uFiFtf-JN7bArx2PXkJ3WQBCIxANyXsxqOof-w4RreudFW3bRyWcPfSXlZzRTWm0");
+            req.setHttpMethod("GET");
+            OapiGettokenResponse rsp = client.execute(req);
+            System.out.println(rsp.getBody());
+            return rsp.getAccessToken();
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        return "获取token失败";
+    }
 
     public static void main(String[] args) {
         DDUserController ddUserController = new DDUserController();

@@ -4,6 +4,7 @@ import com.bdqn.entity.JShouBaoDan;
 import com.bdqn.entity.JsonResult;
 import com.github.pagehelper.PageInfo;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface JShouBaoDanService {
@@ -28,7 +29,7 @@ public interface JShouBaoDanService {
      * @param pageSize
      * @return
      */
-    PageInfo<JShouBaoDan> queryJShouBaoDanListPage(JShouBaoDan jShouBaoDan, Integer pageIndex, Integer pageSize);
+    PageInfo<JShouBaoDan> queryJShouBaoDanListPage(JShouBaoDan jShouBaoDan, Integer pageIndex, Integer pageSize) throws ParseException;
 
     /**
      * 批量删除首保单(假删除)-isdel:1

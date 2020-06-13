@@ -25,7 +25,7 @@ public interface JUserMapper {
     List<JUser> selectUserByUname(String name);
 
     /**
-     * 根据号码查询真实姓名
+     * 根据号码查询真实姓名(新签)
      * @param phone
      * @return
      */
@@ -37,5 +37,12 @@ public interface JUserMapper {
      * @return
      */
     JUser selectUserById(Integer id);
+
+    /**
+     * 根据电话号码查询用户,用作钉钉扫码登录
+     * @param phone
+     * @return
+     */
+    JUser queryJUserByPhone(String phone);
 
 }

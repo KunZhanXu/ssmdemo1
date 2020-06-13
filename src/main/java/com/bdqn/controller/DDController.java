@@ -6,6 +6,7 @@ import com.bdqn.entity.JUser;
 import com.bdqn.entity.JsonResult;
 import com.bdqn.service.JDDBindService;
 import com.bdqn.service.JUserService;
+import com.bdqn.service.JUserServiceImpl;
 import com.bdqn.util.JWTUtil;
 import com.bdqn.util.JsonResultUtil;
 import com.bdqn.util.RandomUtil;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,12 +50,19 @@ public class DDController {
     private JedisClient jedisClientPool;
 
     @RequestMapping("/DDlogin")
-    public void login(HttpServletResponse response) throws IOException {
-
+    public void login(HttpServletResponse response,@RequestParam(required = true) Integer departto) throws IOException {
+        String where = null;
+        if(departto==1){
+            where = "departto1";
+        }else if (departto==2){
+            where = "departto2";
+        }else{
+            where = "departto3";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(DINGDING_URL).append("/connect/qrconnect?appid=" + APP_ID + "&")
                 .append("response_type=code&scope=snsapi_login&state=")
-                .append(System.currentTimeMillis()).append("&redirect_uri=").append(URL);
+                .append(System.currentTimeMillis()).append("&redirect_uri=").append(URL).append("?"+where+"="+departto);
         response.sendRedirect(stringBuilder.toString());
     }
 
@@ -65,7 +74,9 @@ public class DDController {
      */
     @RequestMapping(value = "/firstLogin")
     @ResponseBody
-    public JsonResult firstLogin(@RequestParam("code")String code) throws ApiException {
+    public JsonResult firstLogin(@RequestParam(value = "code",required = true)String code,
+                                 @RequestParam(value = "where",required = true) String where) throws ApiException {
+
         DefaultDingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/sns/getuserinfo_bycode");
         OapiSnsGetuserinfoBycodeRequest req = new OapiSnsGetuserinfoBycodeRequest();
         req.setTmpAuthCode(code);
@@ -77,20 +88,31 @@ public class DDController {
         jddBind.setOpenid(response.getUserInfo().getOpenid());
 
         //查询用户是否在JDDBind表中
-        JsonResult jddBIndResult = jddBindServiceImpl.queryJDDBind(jddBind);
-        return jddBIndResult;
-    }
+        if(where.equals("1")||where.equals("2")){
+            JsonResult jddBIndResult = jddBindServiceImpl.queryJDDBind(jddBind,where);
+            return jddBIndResult;
+        }else {
+            return JsonResultUtil.toJsonString(205,"传入where出错,请联系管理员!");
+        }
 
+    }
 
     @RequestMapping("/loginto")
     @ResponseBody
-    public JsonResult loginto(JDDBind jddBind,String code) throws ApiException {
+    public JsonResult loginto(JDDBind jddBind,String code,@RequestParam(value = "where",required = true) String where) throws ApiException {
         //取出验证码
         String jcode = jedisClientPool.get(KEY_PREFIX + jddBind.getPhone());
         if(StringUtils.isBlank(code) || !code.equals(jcode)){
             return JsonResultUtil.toJsonString(204,"" + "您输入的验证码有误!");
         }
-        JUser queryJUser = jUserServiceImpl.queryJUserByPhone(jddBind.getPhone());
+        JUser queryJUser = null;
+        if(where.equals("1")){
+            queryJUser = jUserServiceImpl.queryJUserByPhone(jddBind.getPhone());
+        }else if(where.equals("2")){
+            queryJUser = jUserServiceImpl.queryNameByPhone1(jddBind.getPhone());
+        }else{
+            return JsonResultUtil.toJsonString(205,"传入where出错,请联系管理员!");
+        }
         //验证是否为本系统人员
         if(queryJUser == null){
             return JsonResultUtil.toJsonString(203,"您不是本系统人员!");

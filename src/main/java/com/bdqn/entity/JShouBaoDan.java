@@ -36,6 +36,7 @@ public class JShouBaoDan implements Serializable {
     private String startmakedate;  //用于查询createdate
     private String endmakedate;    //用于查询createdate
     private String img_url;        //图片地址
+    private String contract_img_url;  //合同图片地址
 
     @Override
     public String toString() {
@@ -68,6 +69,7 @@ public class JShouBaoDan implements Serializable {
                 ", startmakedate='" + startmakedate + '\'' +
                 ", endmakedate='" + endmakedate + '\'' +
                 ", img_url='" + img_url + '\'' +
+                ", contract_img_url='" + contract_img_url + '\'' +
                 '}';
     }
 
@@ -294,5 +296,13 @@ public class JShouBaoDan implements Serializable {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+
+    public String getContract_img_url() {
+        return contract_img_url;
+    }
+
+    public void setContract_img_url(String contract_img_url) {
+        this.contract_img_url = contract_img_url;
     }
 }

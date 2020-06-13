@@ -15,8 +15,8 @@
     </select>
 
     <insert id="insertJShouBaoDan" parameterType="JShouBaoDan" >
-        insert into j_shoubaodan(createdate,makedate,depart01,depart02,depart03,depart04,contact_person,xinqianid,cname,ctype,gd_type,area,gd_id,isdel,createname,status,password,qw,phone,main_product,special_approval_form,remarks,img_url)
-         values(#{createdate},#{makedate},#{depart01},#{depart02},#{depart03},#{depart04},#{contact_person},#{xinqianid},#{cname},#{ctype},#{gd_type},#{area},#{gd_id},#{isdel},#{createname},#{status},#{password},#{qw},#{phone},#{main_product},#{special_approval_form},#{remarks},#{img_url})
+        insert into j_shoubaodan(createdate,makedate,depart01,depart02,depart03,depart04,contact_person,xinqianid,cname,ctype,gd_type,area,gd_id,isdel,createname,status,password,qw,phone,main_product,special_approval_form,remarks,img_url,contract_img_url)
+         values(#{createdate},#{makedate},#{depart01},#{depart02},#{depart03},#{depart04},#{contact_person},#{xinqianid},#{cname},#{ctype},#{gd_type},#{area},#{gd_id},#{isdel},#{createname},#{status},#{password},#{qw},#{phone},#{main_product},#{special_approval_form},#{remarks},#{img_url},#{contract_img_url})
     </insert>
 
     <select id="queryShouBaoDanList" parameterType="JShouBaoDan" resultMap="JShouBaoDanMap">
@@ -67,11 +67,8 @@
             <if test="gd_id != null and gd_id != ''">
                 and gd_id = #{gd_id}
             </if>
-            <if test="createdate != null">
-                and createdate = #{createdate}
-            </if>
-            <if test="makedate != null and makedate != ''">
-                and makedate = #{makedate}
+            <if test="status != null and status != ''">
+                and status = #{status}
             </if>
         </where>
         ORDER BY id desc
@@ -113,6 +110,7 @@
             <if test="contact_person != null">contact_person = #{contact_person},</if>
             <if test="gd_type != null">gd_type = #{gd_type},</if>
             <if test="img_url != null">img_url = #{img_url},</if>
+            <if test="contract_img_url != null">contract_img_url = #{contract_img_url},</if>
         </set>
         where id = #{id}
     </update>

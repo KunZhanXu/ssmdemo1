@@ -6,6 +6,7 @@ import com.bdqn.service.JUserService;
 import com.bdqn.util.JWTUtil;
 import com.bdqn.util.JsonResultUtil;
 import com.bdqn.util.PasswordUtil;
+import org.codehaus.plexus.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +31,7 @@ public class JUserController {
             return JsonResultUtil.toJsonString(201, "账号密码不能为空");
         }
 
+
         JUser jUser = new JUser();
         jUser.setUsername(username);
         jUser.setPassword(PasswordUtil.EncoderByMd5(password));
@@ -42,10 +44,9 @@ public class JUserController {
             map.put("userId",jUser.getId());
             map.put("username",jUser.getRealname());
             return JsonResultUtil.toJsonString(200,"查询成功",map);
-
         }
 
-        return JsonResultUtil.toJsonString(201,"没有该用户");
+        return JsonResultUtil.toJsonString(201,"请输入正确的用户名或密码!");
     }
 
 
@@ -69,6 +70,9 @@ public class JUserController {
             if("16899998888".equals(jUser.getPhone())){
                 isAdmin = "true";
             }
+            if("13705776150".equals(jUser.getPhone())){
+                isAdmin = "true";
+            }
             if("18157777426".equals(jUser.getPhone())){
                 isAdmin = "true";
                 area = "温州";
@@ -77,7 +81,7 @@ public class JUserController {
                 isAdmin = "true";
                 area = "苍南";
             }
-            if("13868793705".equals(jUser.getPhone())){
+            if("18969785030".equals(jUser.getPhone())){
                 isAdmin = "true";
                 area = "乐清";
             }
@@ -91,8 +95,7 @@ public class JUserController {
             return JsonResultUtil.toJsonString(200,"查询成功",map);
 
         }
-
-        return JsonResultUtil.toJsonString(201,"没有该用户");
+        return JsonResultUtil.toJsonString(201,"请输入正确的用户名或密码!");
     }
 
     public static void main(String[] args) throws UnknownHostException {

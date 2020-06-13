@@ -44,7 +44,7 @@ public class JUserServiceImpl implements JUserService {
     }
 
     /**
-     * 根据手机号查询用户名(JUser)
+     * 根据手机号查询用户名(Realname)
      * @param phone
      * @return
      */
@@ -55,6 +55,15 @@ public class JUserServiceImpl implements JUserService {
             return null;
         }
         return juser.getRealname();
+    }
+    /**
+     * 根据手机号查询用户名(JUser)
+     * @param phone
+     * @return
+     */
+    public JUser queryNameByPhone1(String phone) {
+        JUser juser =  this.jUserMapper.queryNameByPhone(phone);
+        return juser;
     }
 
     /**
@@ -74,7 +83,7 @@ public class JUserServiceImpl implements JUserService {
      */
     @Override
     public JUser queryJUserByPhone(String juserPhone) {
-        JUser jUser = jUserMapper.queryNameByPhone(juserPhone);
+        JUser jUser = jUserMapper.queryJUserByPhone(juserPhone);
         return jUser;
     }
 }

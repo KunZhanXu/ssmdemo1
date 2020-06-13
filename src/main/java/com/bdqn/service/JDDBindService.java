@@ -9,7 +9,7 @@ public interface JDDBindService {
      * @param jddBind
      * @return
      */
-    JsonResult queryJDDBind(JDDBind jddBind);
+    JsonResult queryJDDBind(JDDBind jddBind,String where);
 
     /**
      * 存储JDDBind

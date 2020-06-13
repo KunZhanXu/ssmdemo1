@@ -76,7 +76,7 @@ public class JXinQian {
     private String xinqianid;//ID
     private String to_order_type;//到单方式
     private String contact_person;//联系人
-    private String to_money_type;//到单方式
+    private String to_money_type;//到账方式
     private String manager_group;//经理组
     private String startcreatetime;
     private String endcreatetime;
@@ -87,6 +87,7 @@ public class JXinQian {
     private String isfirstinsurance; //是否赠送首保
     private String factory_customers; //工厂客户
     private String remarks;//备注
+    private String main_product; //主营产品
 
     private Date registdate;
     private Date tiaorudate;
@@ -802,4 +803,13 @@ public class JXinQian {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    public String getMain_product() {
+        return main_product;
+    }
+
+    public void setMain_product(String main_product) {
+        this.main_product = main_product;
+    }
+
 }

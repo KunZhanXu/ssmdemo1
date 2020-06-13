@@ -24,7 +24,7 @@ public class JDDBindServiceImpl implements JDDBindService {
     private JUserMapper jUserMapper;
 
     @Override
-    public JsonResult queryJDDBind(JDDBind jddBind) {
+    public JsonResult queryJDDBind(JDDBind jddBind,String where) {
         List<JDDBind> jddBinds = jddBindMapper.queryJDDBind(jddBind);
         JsonResult jsonResult = new JsonResult();
         if(jddBinds.size()>1){
@@ -35,7 +35,16 @@ public class JDDBindServiceImpl implements JDDBindService {
             //如果不是第一次登陆,那就查询出对应的JUser信息
             JDDBind bind = jddBinds.get(0);
             String jUserPhone = bind.getPhone();
-            JUser jUser1 = jUserMapper.queryNameByPhone(jUserPhone);
+            JUser jUser1 = null;
+            if(where.equals("1")){
+                jUser1 = jUserMapper.queryJUserByPhone(jUserPhone);
+            }else{
+                jUser1 = jUserMapper.queryNameByPhone(jUserPhone);
+            }
+            if(jUser1 == null){
+                jsonResult.setMessage("您不是本系统人员!");
+                return jsonResult;
+            }
             String sign = JWTUtil.sign(jUser1,72000);
             Map map = new HashMap();
             map.put("token",sign);

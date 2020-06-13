@@ -34,4 +34,8 @@
     <select id="queryNameByPhone" parameterType="String" resultMap="userMap">
         select * from j_user where phone = #{phone} and isdel = 0 and depart01 = 10076
     </select>
+    <!--根据电话号码查询用户,用作钉钉扫码登录-->
+    <select id="queryJUserByPhone" parameterType="String" resultMap="userMap">
+        select * from j_user where phone = #{phone} and isdel = 0
+    </select>
 </mapper>

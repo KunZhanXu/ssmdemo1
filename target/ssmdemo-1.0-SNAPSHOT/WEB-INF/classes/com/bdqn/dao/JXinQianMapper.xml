@@ -18,7 +18,7 @@
                                 ,registdate,tiaorudate,lastupdatedate,lasttohighseadate,creatdate,upatedate,tradespdate,opentime,firstrechargetime
                                 ,wprice,rechargeallprice,consumeallprice
                                 ,creatname,xinqianid,to_order_type,contact_person,to_money_type,manager_group
-                                ,RenewTime,RenewYear,IsRefund,IsFirstInsurance,factory_customers,remarks
+                                ,RenewTime,RenewYear,IsRefund,IsFirstInsurance,factory_customers,remarks,main_product
                                 )
                     values(#{industry},#{ctype},#{cfrom},#{chengshudu},#{status_genjin},#{status},#{departjia},#{departyi},#{belongid}
                             ,#{spstatus},#{tiaorurenid},#{lastupdateid},#{tohighseatimes},#{chengshudu_last},#{isdel},#{createid},#{updateid},#{groupid},#{depart_property}
@@ -28,7 +28,7 @@
                             ,#{registdate},#{tiaorudate},#{lastupdatedate},#{lasttohighseadate},#{creatdate},#{upatedate},#{tradespdate},#{opentime},#{firstrechargetime}
                             ,#{wprice},#{rechargeallprice},#{consumeallprice}
                             ,#{creatname},#{xinqianid},#{to_order_type},#{contact_person},#{to_money_type},#{manager_group}
-                            ,#{renewtime},#{renewyear},#{isrefund},#{isfirstinsurance},#{factory_customers},#{remarks}
+                            ,#{renewtime},#{renewyear},#{isrefund},#{isfirstinsurance},#{factory_customers},#{remarks},#{main_product}
                     )
     </insert>
 
@@ -107,7 +107,7 @@
             <if test="to_order_type != null">to_order_type = #{to_order_type},</if>
             <if test="contact_person != null">contact_person = #{contact_person},</if>
             <if test="to_money_type != null">to_money_type = #{to_money_type},</if>
-
+            <if test="main_product != null">main_product = #{main_product},</if>
             <if test="renewtime != null">RenewTime = #{renewtime},</if>
             <if test="renewyear != null">RenewYear = #{renewyear},</if>
             <if test="isrefund != null">IsRefund = #{isrefund},</if>
@@ -194,13 +194,13 @@
             <if test="to_order_type != null">to_order_type = #{to_order_type},</if>
             <if test="contact_person != null">contact_person = #{contact_person},</if>
             <if test="to_money_type != null">to_money_type = #{to_money_type},</if>
-            
-            <if test="renewtime != null">RenewTime = #{renewdate},</if>
-            <if test="renewyear != null">RenewYear = #{renewyears},</if>
+            <if test="renewtime != null">RenewTime = #{renewtime},</if>
+            <if test="renewyear != null">RenewYear = #{renewyear},</if>
             <if test="isrefund != null">IsRefund = #{isrefund},</if>
             <if test="isfirstinsurance != null">IsFirstInsurance = #{isfirstinsurance},</if>
             <if test="factory_customers != null">factory_customers = #{factory_customers},</if>
             <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="main_product != null">main_product = #{main_product},</if>
         </set>
         where id = #{id}
     </update>
@@ -299,6 +299,12 @@
             </if>
             <if test="factory_customers != null and factory_customers!=''">
                 and factory_customers = #{factory_customers}
+            </if>
+            <if test="remarks != null and remarks!=''">
+                and remarks like '%${remarks}%'
+            </if>
+            <if test="main_product != null and main_product!=''">
+                and main_product like '%${main_product}%'
             </if>
         </where>
         ORDER BY id desc

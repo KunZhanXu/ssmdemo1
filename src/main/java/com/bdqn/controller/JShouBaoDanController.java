@@ -8,6 +8,7 @@ import com.bdqn.util.JWTUtil;
 import com.bdqn.util.JsonResultUtil;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/sbd")
@@ -90,8 +90,8 @@ public class JShouBaoDanController {
     public JsonResult selectJShouBaoDan(JShouBaoDan jShouBaoDan,
                                     @RequestParam(value = "pageIndex",required = false,defaultValue = "1") Integer pageIndex,
                                     @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
-                                    HttpServletRequest request){
-        System.out.println(jShouBaoDan);
+                                    HttpServletRequest request) throws ParseException {
+
         //用于接收返回的值
         PageInfo<JShouBaoDan> jShouBaoDans = null;
         jShouBaoDan.setIsdel(0);
@@ -99,22 +99,65 @@ public class JShouBaoDanController {
         String token = request.getHeader("token");
         JUser tokenUser = JWTUtil.unsign(token, JUser.class);
         String phone = tokenUser.getPhone();
+        if(StringUtils.isBlank(phone)) {
+            return JsonResultUtil.toJsonString(201,"token为空");
+        }
         System.out.println(phone);
         if(phone.equals("18157777426")){
             jShouBaoDan.setArea("温州");
         }else if(phone.equals("13566129623")){
             jShouBaoDan.setArea("苍南");
-        }else if(phone.equals("13868793705")){
+        }else if(phone.equals("18969785030")){
             jShouBaoDan.setArea("乐清");
-        }else if(phone.equals("16899998888")){
+        }else if(phone.equals("16899998888") || phone.equals("13705776150")){
 
-        }else{
+        }else {
             jShouBaoDan.setCreatename(tokenUser.getRealname());
         }
 
         jShouBaoDans = this.jShouBaoDanServiceImpl.queryJShouBaoDanListPage(jShouBaoDan,pageIndex,pageSize);
         return JsonResultUtil.returnMessageDate(jShouBaoDans);
     }
+
+    /**
+     * 查询首保单不带token
+     * @param jShouBaoDan
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sbd_selectnottoken",produces = {"application/json;charset=UTF-8"})
+    public JsonResult selectJShouBaoDanNotToken(JShouBaoDan jShouBaoDan,
+                                                @RequestParam(value = "phone",required = true) String phone,
+                                                @RequestParam(value = "pageIndex",required = false,defaultValue = "1") Integer pageIndex,
+                                                @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
+                                                HttpServletRequest request) throws ParseException {
+        System.out.println(jShouBaoDan);
+        //用于接收返回的值
+        PageInfo<JShouBaoDan> jShouBaoDans = null;
+        jShouBaoDan.setIsdel(0);
+        if(StringUtils.isBlank(phone)) {
+            return JsonResultUtil.toJsonString(201,"token为空");
+        }
+        if(phone.equals("18157777426")){
+            jShouBaoDan.setArea("温州");
+        }else if(phone.equals("13566129623")){
+            jShouBaoDan.setArea("苍南");
+        }else if(phone.equals("18969785030")){
+            jShouBaoDan.setArea("乐清");
+        }else if(phone.equals("16899998888") || phone.equals("13705776150")){
+
+        }else{
+            String createname = jUserServiceImpl.queryNameByPhone(phone);
+            jShouBaoDan.setCreatename(createname);
+        }
+
+        jShouBaoDans = this.jShouBaoDanServiceImpl.queryJShouBaoDanListPage(jShouBaoDan,pageIndex,pageSize);
+        return JsonResultUtil.returnMessageDate(jShouBaoDans);
+    }
+
+
     /**
      * 批量删除首保单(假删除)-isdel:1
      * @return
@@ -185,7 +228,7 @@ public class JShouBaoDanController {
         String img_url = null;  //保存数据库的路径
         if(!file.isEmpty()){
             //文件放置位置
-            String path = "D:\\crm\\images";
+            String path = "D:\\crm\\images\\";
             //获取文件原始名
             String originalFileName = file.getOriginalFilename();
             // 新的图片名称
@@ -196,7 +239,7 @@ public class JShouBaoDanController {
             file.transferTo(newFile);
         }
         //把图片的相对路径保存至数据库
-        img_url = "/images/"+newFileName;
+        img_url = "https://crm.jointpoint.cn:8443/images/"+newFileName;
         return JsonResultUtil.toJsonString(200, "上传成功",img_url);
     }
 

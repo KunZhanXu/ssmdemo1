@@ -32,6 +32,13 @@ public interface JUserService {
     String queryNameByPhone(String phone);
 
     /**
+      * 根据手机号查询用户
+     * @param phone
+     * @return
+             */
+    JUser queryNameByPhone1(String phone);
+
+    /**
      * 根据用户id查询用户信息
      * @param id
      * @return

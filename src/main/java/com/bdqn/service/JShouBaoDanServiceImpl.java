@@ -10,6 +10,10 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,10 +54,28 @@ public class JShouBaoDanServiceImpl implements JShouBaoDanService {
      * @return
      */
     @Override
-    public PageInfo<JShouBaoDan> queryJShouBaoDanListPage(JShouBaoDan jShouBaoDan, Integer pageIndex, Integer pageSize) {
+    public PageInfo<JShouBaoDan> queryJShouBaoDanListPage(JShouBaoDan jShouBaoDan, Integer pageIndex, Integer pageSize) throws ParseException {
         PageHelper.startPage(pageIndex,pageSize);
         System.out.println("这是jshoubaodan里面的方法"+jShouBaoDan);
-
+        System.out.println(jShouBaoDan.getEndcreatedate()+"111111");
+        if(jShouBaoDan.getEndcreatedate()!=null && jShouBaoDan.getEndcreatedate()!="null" && jShouBaoDan.getEndcreatedate()!=""){
+            Date endCreatedate = new SimpleDateFormat("yyyy/MM/dd").parse(jShouBaoDan.getEndcreatedate());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endCreatedate);
+            calendar.add(calendar.DATE, 1);
+            jShouBaoDan.setEndcreatedate(sdf.format(calendar.getTime()));
+            System.out.println(jShouBaoDan.getEndcreatedate());
+        }
+        if(jShouBaoDan.getEndmakedate()!=null && jShouBaoDan.getEndmakedate()!="null" && jShouBaoDan.getEndmakedate()!=""){
+            Date Endmakedate = new SimpleDateFormat("yyyy/MM/dd").parse(jShouBaoDan.getEndmakedate());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(Endmakedate);
+            calendar.add(calendar.DATE, 1);
+            jShouBaoDan.setEndmakedate(sdf.format(calendar.getTime()));
+            System.out.println(jShouBaoDan.getEndmakedate());
+        }
         List<JShouBaoDan> list = this.jShouBaoDanMapper.queryShouBaoDanList(jShouBaoDan);
         PageInfo<JShouBaoDan> pageInfo = new PageInfo<>(list);
         return pageInfo;
